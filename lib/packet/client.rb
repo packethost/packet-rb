@@ -4,7 +4,7 @@ module Packet
   class Client
     attr_accessor :url, :consumer_token, :auth_token
 
-    def initialize(url, consumer_token, auth_token)
+    def initialize(url = nil, consumer_token = nil, auth_token = nil)
       self.url = url || Packet.configuration.url
       self.consumer_token = consumer_token || Packet.configuration.consumer_token
       self.auth_token = auth_token || Packet.configuration.auth_token
@@ -15,6 +15,14 @@ module Packet
         response = client.send(method, *args)
         fail_on_error(response) || response
       end
+    end
+
+    def self.instance
+      @instance ||= new(
+        Packet.configuration.url,
+        Packet.configuration.consumer_token,
+        Packet.configuration.auth_token
+      )
     end
 
     private

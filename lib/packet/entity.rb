@@ -6,5 +6,13 @@ module Packet
         send(setter, value) if respond_to?(setter)
       end
     end
+
+    def client
+      self.class.client
+    end
+
+    def self.client
+      Packet::Client.instance
+    end
   end
 end

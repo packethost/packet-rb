@@ -10,10 +10,6 @@ require 'packet/ssh_key'
 require 'packet/version'
 
 module Packet
-  class << self
-    attr_writer :configuration
-  end
-
   def self.configuration
     @configuration ||= Configuration.new
   end
