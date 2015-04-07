@@ -1,0 +1,10 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - lib/**/*
+
+Documentation:
+  Enabled: false
+
+LineLength:
+  Enabled: false
