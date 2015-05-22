@@ -1,3 +1,5 @@
+$:.unshift File.dirname(__FILE__)
+
 require 'packet/client'
 require 'packet/configuration'
 require 'packet/device'
