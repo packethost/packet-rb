@@ -3,7 +3,7 @@ require 'packet/ssh_key'
 
 module Packet
   class Project < Entity
-    attr_accessor :id, :ssh_keys
+    attr_accessor :id, :name, :ssh_keys
 
     def initialize(attributes = {})
       super

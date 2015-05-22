@@ -18,6 +18,7 @@ module Packet
 
   def self.configure
     yield(configuration)
+    true
   end
 
   def self.reset
