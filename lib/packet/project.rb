@@ -1,13 +1,11 @@
 require 'packet/entity'
-require 'packet/ssh_key'
 
 module Packet
   class Project < Entity
-    attr_accessor :id, :name, :ssh_keys
+    attr_accessor :id, :name
 
-    def initialize(attributes = {})
-      super
-      self.ssh_keys = ssh_keys.map { |data| SshKey.new(data) } if ssh_keys
-    end
+    has_many :ssh_keys
+    has_many :devices
+    has_timestamps
   end
 end

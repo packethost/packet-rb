@@ -1,5 +1,7 @@
 require 'faraday'
 require 'faraday_middleware'
+require 'packet/client/devices'
+require 'packet/client/projects'
 
 module Packet
   class Client
@@ -47,5 +49,8 @@ module Packet
     def fail_on_error(response)
       fail Error, response.body unless response.success?
     end
+
+    include Packet::Client::Devices
+    include Packet::Client::Projects
   end
 end

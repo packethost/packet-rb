@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'faraday', '>= 0.9.0'
 gem 'faraday_middleware', '>= 0.9.0'
+gem 'activesupport', '~> 4.2'
 
 group :development do
   gem 'rake', '~> 0'
