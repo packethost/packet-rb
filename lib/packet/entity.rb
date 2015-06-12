@@ -36,7 +36,7 @@ module Packet
     end
 
     def self.casts(attribute, transformer)
-      self._casts[attribute.to_sym] = transformer
+      _casts[attribute.to_sym] = transformer
       attr_accessor attribute.to_sym
     end
 

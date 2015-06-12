@@ -2,7 +2,7 @@ module Packet
   class Client
     module Devices
       def devices(*args)
-        get('devices').body['devices'].map { |p| Packet::Device.new(p) }
+        get('devices', args).body['devices'].map { |p| Packet::Device.new(p) }
       end
 
       def device(id)

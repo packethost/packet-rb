@@ -8,3 +8,8 @@ Documentation:
 
 LineLength:
   Enabled: false
+
+Style/PredicateName:
+  NamePrefix:
+    - is_
+    - have_
