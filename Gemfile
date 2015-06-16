@@ -13,4 +13,5 @@ group :development do
   gem 'jeweler', '~> 2.0.1'
   gem 'simplecov', '~> 0'
   gem 'rubocop', '~> 0'
+  gem 'sinatra', '~> 1.4'
 end
