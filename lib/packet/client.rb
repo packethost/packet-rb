@@ -1,6 +1,7 @@
 require 'faraday'
 require 'faraday_middleware'
 require 'packet/client/devices'
+require 'packet/client/plans'
 require 'packet/client/projects'
 
 module Packet
@@ -40,7 +41,7 @@ module Packet
       {
         'X-Consumer-Token' => consumer_token,
         'X-Auth-Token' => auth_token,
-        'X-Packet-Staff' => '1',
+        # 'X-Packet-Staff' => '1',
         'Content-Type' => 'application/json',
         'Accept' => 'application/json'
       }.reject { |_, v| v.nil? }
@@ -52,5 +53,6 @@ module Packet
 
     include Packet::Client::Devices
     include Packet::Client::Projects
+    include Packet::Client::Plans
   end
 end
