@@ -10,6 +10,7 @@ require 'packet/operating_system'
 require 'packet/plan'
 require 'packet/project'
 require 'packet/ssh_key'
+require 'packet/user'
 require 'packet/version'
 
 module Packet
