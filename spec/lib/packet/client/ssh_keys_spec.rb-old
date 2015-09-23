@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Packet::Client::SshKeys do
+RSpec.describe 'SSH Keys' do
   before do
     Packet.configure do |config|
       config.auth_token = 'auth_token'

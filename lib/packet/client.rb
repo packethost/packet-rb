@@ -1,13 +1,11 @@
 require 'faraday'
 require 'faraday_middleware'
-require 'packet/client/devices'
-require 'packet/client/operating_systems'
-require 'packet/client/plans'
-require 'packet/client/projects'
-require 'packet/client/ssh_keys'
+require 'packet/resources'
 
 module Packet
   class Client
+    include Packet::Client::Resources
+
     attr_accessor :url, :consumer_token, :auth_token
 
     def initialize(url = Packet.configuration.url,
@@ -52,11 +50,5 @@ module Packet
     def fail_on_error(response)
       fail Error, response.body unless response.success?
     end
-
-    include Packet::Client::Devices
-    include Packet::Client::OperatingSystems
-    include Packet::Client::Plans
-    include Packet::Client::Projects
-    include Packet::Client::SshKeys
   end
 end
