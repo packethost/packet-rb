@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Packet::Client::OperatingSystems do
+RSpec.describe 'Operating Systems' do
   before do
     Packet.configure do |config|
       config.auth_token = 'auth_token'
@@ -12,10 +12,8 @@ RSpec.describe Packet::Client::OperatingSystems do
   end
 
   describe '.operating_systems', :vcr do
-    it 'returns all plans' do
+    it 'returns all os' do
       operating_systems = Packet.operating_systems
-      expect(operating_systems).to be_kind_of Array
-      expect(operating_systems.first.slug).not_to be_nil
       assert_requested :get, 'https://api.packet.net/operating-systems'
     end
   end
