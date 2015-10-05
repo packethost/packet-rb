@@ -1,51 +1,23 @@
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
-require 'packet/client'
+require 'her'
 require 'packet/configuration'
-require 'packet/device'
-require 'packet/entity'
+require 'packet/parser'
 require 'packet/errors'
-require 'packet/facility'
-require 'packet/operating_system'
-require 'packet/plan'
-require 'packet/project'
-require 'packet/ssh_key'
-require 'packet/user'
 require 'packet/version'
 
 module Packet
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
+  class << self
+    def configure
+      yield(configuration)
+      configuration.setup if configuration.valid?
+      true
+    end
 
-  def self.configure
-    yield(configuration)
-    true
-  end
+    private
 
-  def self.reset
-    @configuration = Configuration.new
-  end
-
-  def self.client
-    Packet::Client.instance
-  end
-
-  private
-
-  def self.respond_to_missing?(method_name, include_private = false)
-    client.respond_to?(method_name, include_private)
-  end if RUBY_VERSION >= '1.9'
-
-  def self.respond_to?(method_name, include_private = false)
-    client.respond_to?(method_name, include_private) || super
-  end if RUBY_VERSION < '1.9'
-
-  def self.method_missing(method_name, *args, &block)
-    if client.respond_to?(method_name)
-      client.send(method_name, *args, &block)
-    else
-      super
+    def configuration
+      @configuration ||= Configuration.new
     end
   end
 end
