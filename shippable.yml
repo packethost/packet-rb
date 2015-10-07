@@ -1,0 +1,9 @@
+env:
+  global:
+    - COVERAGE=true COVERAGE_REPORTS=shippable/codecoverage CI_REPORTS=shippable/testresults
+
+language: ruby
+rvm:
+  - 2.1.2
+
+script: bundle exec rake ci

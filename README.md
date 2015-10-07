@@ -3,6 +3,10 @@ Packet
 
 A Ruby client for the Packet API.
 
+<a href="https://rubygems.org/gems/packethost"><img src="http://img.shields.io/gem/v/packet.svg" /></a>
+<a href="https://app.shippable.com/projects/552552825ab6cc1352bc6ff9"><img src="https://img.shields.io/shippable/552552825ab6cc1352bc6ff9.svg" /></a>
+
+
 Configuration
 -------------
 
@@ -16,7 +20,7 @@ You can either configure the library in a global way (easier):
 Usage
 -----
 
-Using the Packet API is as easy as using ActiveRecord. For instance to ask for a list of plans, you can just do 
+Using the Packet API is as easy as using ActiveRecord. For instance to ask for a list of plans, you can just do
 
 ```
 Packet::Plan.all.each { |plan| puts plan.name }
@@ -41,7 +45,7 @@ GlobalID
 --------
 
 This library comes with a `GlobalID::Locator` implementation that you can use
-to load object from the Packet API remotely. To set it up, do something like
+to load an object from the Packet API remotely. To set it up, do something like
 this in your initializer:
 
     require 'packet/global_id'
