@@ -1,7 +1,6 @@
-require 'packet/entity'
-
 module Packet
   class OperatingSystem < Entity
-    attr_accessor :slug, :name, :distro, :version
+    collection_path '/operating-systems'
+    resource_path '/operating-systems/:id'
   end
 end

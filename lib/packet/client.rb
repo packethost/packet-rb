@@ -1,62 +1,29 @@
-require 'faraday'
-require 'faraday_middleware'
-require 'packet/client/devices'
-require 'packet/client/operating_systems'
-require 'packet/client/plans'
-require 'packet/client/projects'
-require 'packet/client/ssh_keys'
+require 'active_support/inflector'
 
 module Packet
   class Client
-    attr_accessor :url, :consumer_token, :auth_token
+    ENTITIES = [:project, :device, :operating_system, :plan, :ssh_key, :user, :facility].freeze
 
-    def initialize(url = Packet.configuration.url,
-                   auth_token = Packet.configuration.auth_token,
-                   consumer_token = Packet.configuration.consumer_token)
-      self.url = url
-      self.auth_token = auth_token
-      self.consumer_token = consumer_token
-    end
-
-    [:get, :post, :patch, :head, :delete].each do |method|
-      define_method(method) do |*args|
-        response = client.send(method, *args)
-        fail_on_error(response) || response
-      end
-    end
-
-    def self.instance
-      @_instance ||= new
+    def initialize(auth_token)
+      build_client auth_token
     end
 
     private
 
-    def client
-      @client ||= Faraday.new(url: url, headers: headers, ssl: { verify: true }) do |faraday|
-        faraday.request :json
-        faraday.response :json, content_type: /\bjson$/
-        faraday.adapter Faraday.default_adapter
+    def build_client(auth_token)
+      api = Configuration.new(auth_token: auth_token).new_api
+      ENTITIES.each do |entity|
+        model = Class.new(packet_class(entity)) do
+          root_element entity
+          use_api api
+        end
+
+        self.class.send(:define_method, entity, -> { model })
       end
     end
 
-    def headers
-      {
-        'X-Consumer-Token' => consumer_token,
-        'X-Auth-Token' => auth_token,
-        # 'X-Packet-Staff' => '1',
-        'Content-Type' => 'application/json',
-        'Accept' => 'application/json'
-      }.reject { |_, v| v.nil? }
+    def packet_class(entity)
+      "Packet::#{entity.to_s.classify}".constantize
     end
-
-    def fail_on_error(response)
-      fail Error, response.body unless response.success?
-    end
-
-    include Packet::Client::Devices
-    include Packet::Client::OperatingSystems
-    include Packet::Client::Plans
-    include Packet::Client::Projects
-    include Packet::Client::SshKeys
   end
 end

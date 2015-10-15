@@ -3,59 +3,59 @@ Packet
 
 A Ruby client for the Packet API.
 
+<a href="https://rubygems.org/gems/packethost"><img src="http://img.shields.io/gem/v/packet.svg" /></a>
+<a href="https://app.shippable.com/projects/552552825ab6cc1352bc6ff9"><img src="https://img.shields.io/shippable/552552825ab6cc1352bc6ff9.svg" /></a>
+
+
 Configuration
 -------------
 
 You can either configure the library in a global way (easier):
 
     Packet.configure do |config|
-      config.api_token = 'my_api_token'
+      config.auth_token = 'my_api_token'
     end
 
-or create and use an individual instance of `Packet::Client` (more complex):
-
-    Packet::Client.new(url, api_token)
-
-Generally speaking, you'll probably want to configure it globally if you only
-ever use a single API token.
 
 Usage
 -----
 
-If you configured the library globally, you can just call methods on the
-`Packet` module. For example:
+Using the Packet API is as easy as using ActiveRecord. For instance to ask for a list of plans, you can just do
 
-    Packet.devices
-    => [#<Packet::Device>, #<Packet::Device>]
+```
+Packet::Plan.all.each { |plan| puts plan.name }
+```
 
-If you configured a `Packet::Client` manually, you can call those same methods
-on the client itself:
+Or want to list the devices you have in your projects? Easy...
 
-    client = Packet::Client.new( ... )
-    client.devices
-    => [#<Packet::Device>, #<Packet::Device>]
+```
+Packet::Project.all.each do |project|
+  project.devices.each { |d| puts d.hostname }
+end
+```
 
-See a [list of available methods](https://github.com/packethost/packet-rb/tree/master/lib/packet/client).
+If you want to find a device using its id, you can use `find`
+
+```
+my_device = Packet::Device.find('fa3aa4f0-4a1a-4a68-8fad-90ff777de427')
+
+```
 
 GlobalID
 --------
 
 This library comes with a `GlobalID::Locator` implementation that you can use
-to load object from the Packet API remotely. To set it up, do something like
+to load an object from the Packet API remotely. To set it up, do something like
 this in your initializer:
 
     require 'packet/global_id'
 
-    GlobalID::Locator.use :packet_api, Packet::GlobalIDLocator.new
-
-    # Optionally include an instance of `Packet::Client` to use for fetching:
-    client = Packet::Client.new(url, api_token)
-    GlobalID::Locator.use :packet_api, Packet::GlobalIDLocator.new(client)
+    GlobalID::Locator.use 'packet-api', Packet::GlobalIDLocator.new
 
 Once you get that up, you should be able to load entities from the Packet API
 like so:
 
-    project_gid = 'gid://packet-api/Project/bf821113-c71e-41f0-99a0-9c2943ea1878'
+    project_gid = 'gid://packet-api/Packet::Project/bf821113-c71e-41f0-99a0-9c2943ea1878'
     GlobalID::Locator.locate project_gid
     => #<Packet:Project:0x007fae94bf6298 @id="bf821113-c71e-41f0-99a0-9c2943ea1878">
 

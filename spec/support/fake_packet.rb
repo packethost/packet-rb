@@ -24,7 +24,7 @@ class FakePacket < Sinatra::Base
     json_response 200, 'ssh_key.json'
   end
 
-  patch '/ssh-keys/:key' do
+  put '/ssh-keys/:key' do
     json_response 200, 'ssh_key.json'
   end
 
