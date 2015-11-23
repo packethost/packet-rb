@@ -1,7 +1,5 @@
-require 'packet/entity'
-
 module Packet
   class Plan < Entity
-    attr_accessor :name, :slug, :description
+    collection_path '/plans'
   end
 end

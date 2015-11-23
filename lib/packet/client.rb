@@ -1,62 +1,150 @@
-require 'faraday'
-require 'faraday_middleware'
-require 'packet/client/devices'
-require 'packet/client/operating_systems'
-require 'packet/client/plans'
-require 'packet/client/projects'
-require 'packet/client/ssh_keys'
-
 module Packet
   class Client
-    attr_accessor :url, :consumer_token, :auth_token
-
-    def initialize(url = Packet.configuration.url,
-                   auth_token = Packet.configuration.auth_token,
-                   consumer_token = Packet.configuration.consumer_token)
-      self.url = url
-      self.auth_token = auth_token
-      self.consumer_token = consumer_token
-    end
-
-    [:get, :post, :patch, :head, :delete].each do |method|
-      define_method(method) do |*args|
-        response = client.send(method, *args)
-        fail_on_error(response) || response
+    def initialize(opts = nil)
+      case opts
+      when nil
+        conf = Packet.configuration
+        opts = conf.faraday_options
+      when String
+        conf = Configuration.new
+        conf.auth_token = opts
+        opts = conf.faraday_options
+      when Hash
+        conf = Configuration.new
+        opts.each_pair { |k, v| conf.send(":#{k}=", v) }
+        opts = conf.faraday_options
+      else
+        fail InvalidConfiguration
       end
-    end
 
-    def self.instance
-      @_instance ||= new
-    end
-
-    private
-
-    def client
-      @client ||= Faraday.new(url: url, headers: headers, ssl: { verify: true }) do |faraday|
-        faraday.request :json
+      @conn = Faraday.new(opts) do |faraday|
+        faraday.request  :json
         faraday.response :json, content_type: /\bjson$/
-        faraday.adapter Faraday.default_adapter
+        faraday.response Packet::ErrorHandler
+        faraday.adapter  Faraday.default_adapter
       end
     end
 
-    def headers
-      {
-        'X-Consumer-Token' => consumer_token,
-        'X-Auth-Token' => auth_token,
-        # 'X-Packet-Staff' => '1',
-        'Content-Type' => 'application/json',
-        'Accept' => 'application/json'
-      }.reject { |_, v| v.nil? }
+    #
+    # Top-level API methods
+    #
+
+    def add_email_address(address, default = false)
+      body = {
+        'address' => address,
+        'default' => default
+      }
+      post('/emails', body)
     end
 
-    def fail_on_error(response)
-      fail Error, response.body unless response.success?
+    def add_ssh_key(label, key)
+      body = {
+        'label' => label,
+        'key'   => key
+      }
+      post('/ssh-keys', body)
     end
 
-    include Packet::Client::Devices
-    include Packet::Client::OperatingSystems
-    include Packet::Client::Plans
-    include Packet::Client::Projects
-    include Packet::Client::SshKeys
+    def create_project(name)
+      body = {
+        'name' => name
+      }
+      post('/projects', body)
+    end
+
+    def device(id)
+      get("/devices/#{id}")
+    end
+
+    def events(params = {})
+      get('/events', params)
+    end
+
+    def facilities
+      get('/facilities')
+    end
+
+    def invitation(id)
+      get("/invitations/#{id}")
+    end
+
+    def membership(id)
+      get("/memberships/#{id}")
+    end
+
+    def notification(id)
+      get("/notifications/#{id}")
+    end
+
+    def notifications(params = {})
+      get('/notifications', params)
+    end
+
+    def operating_systems
+      get('/operating-systems')
+    end
+
+    def plans
+      get('/plans')
+    end
+
+    def project(id)
+      get("/projects/#{id}")
+    end
+
+    def projects
+      get('/projects')
+    end
+
+    def ssh_keys
+      get('/ssh-keys')
+    end
+
+    def transfer_request(id)
+      get("/transfers/#{id}")
+    end
+
+    def user(id)
+      get("/users/#{id}")
+    end
+
+    #
+    # Low-level HTTP methods
+    #
+
+    def delete(path)
+      @conn.delete do |req|
+        req.url(path)
+      end
+    end
+
+    def get(path, params = nil)
+      res = @conn.get do |req|
+        req.url(path, params)
+      end
+
+      if block_given?
+        ret = nil
+        res.on_complete { |env| ret = yield env } if block_given?
+        ret
+      elsif res.success?
+        res.body
+      else
+        res
+      end
+    end
+
+    def patch(path, body)
+      @conn.patch do |req|
+        req.url(path)
+      end
+    end
+
+    def post(path, body)
+      @conn.post do |req|
+        req.url(path)
+        req.body = body
+      end
+    end
   end
 end

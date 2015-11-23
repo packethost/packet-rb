@@ -1,10 +1,7 @@
-require 'packet/entity'
-
 module Packet
-  class SshKey < Entity
-    attr_accessor :id, :label, :key
-    alias_method :to_s, :key
+  class SSHKey < Entity
+    include Mutable
 
-    has_one :user
+    collection_path '/ssh-keys'
   end
 end

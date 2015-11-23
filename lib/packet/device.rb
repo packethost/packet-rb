@@ -1,17 +1,45 @@
-require 'packet/entity'
-
 module Packet
   class Device < Entity
-    attr_accessor :id, :name, :hostname, :ip_addresses, :userdata
+    include Mutable
 
-    has_one :project
-    has_one :facility
-    has_one :plan
+    collection_path '/devices'
 
-    has_timestamps
+    def events
+      @client.get("#{self.class.collection_path}/#{id}/events")
+    end
 
-    def ip_addresses
-      @ip_addresses || []
+    def lock
+      post_action :lock
+    end
+
+    def power_off
+      post_action :power_off
+    end
+
+    def power_on
+      post_action :power_on
+    end
+
+    def reboot
+      post_action :reboot
+    end
+
+    def rebuild
+      post_action :rebuild
+    end
+
+    def unlock
+      post_action :unlock
+    end
+
+    def update_hostname(hostname)
+      @client.patch("#{self.class.collection_path}/#{id}", { 'hostname' => hostname })
+    end
+
+    private
+
+    def post_action(action)
+      @client.post("#{self.class.collection_path}/#{id}/actions", { 'type' => action.to_s })
     end
   end
 end

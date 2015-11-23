@@ -1,16 +1,11 @@
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
-require 'packet/client'
+require 'faraday'
+require 'faraday_middleware'
+require 'packet/error_handler'
+# require 'packet/parser'
 require 'packet/configuration'
-require 'packet/device'
-require 'packet/entity'
-require 'packet/errors'
-require 'packet/facility'
-require 'packet/operating_system'
-require 'packet/plan'
-require 'packet/project'
-require 'packet/ssh_key'
-require 'packet/user'
+require 'packet/client'
 require 'packet/version'
 
 module Packet
@@ -19,7 +14,7 @@ module Packet
   end
 
   def self.configure
-    yield(configuration)
+    yield configuration
     true
   end
 
@@ -28,7 +23,7 @@ module Packet
   end
 
   def self.client
-    Packet::Client.instance
+    @client ||= Client.new
   end
 
   private
@@ -48,4 +43,18 @@ module Packet
       super
     end
   end
+
+  autoload :Entity, 'packet/entity'
+  autoload :Mutable, 'packet/mutable'
+  autoload :Device, 'packet/device'
+  autoload :EmailAddress, 'packet/email_address'
+  autoload :Facility, 'packet/facility'
+  autoload :Invitation, 'packet/invitation'
+  autoload :Notification, 'packet/notification'
+  autoload :OperatingSystem, 'packet/operating_system'
+  autoload :Plan, 'packet/plan'
+  autoload :Project, 'packet/project'
+  autoload :SSHKey, 'packet/ssh_key'
+  autoload :TransferRequest, 'packet/transfer_request'
+  autoload :User, 'packet/user'
 end
