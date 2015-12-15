@@ -1,10 +1,11 @@
 require 'packet/entity'
 
 module Packet
-  class Project < Entity
-    attr_accessor :id, :name
+  class Project
+    include Entity
 
-    has_many :ssh_keys
+    attr_accessor :name
+
     has_many :devices
     has_timestamps
   end

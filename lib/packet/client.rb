@@ -1,10 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
-require 'packet/client/devices'
-require 'packet/client/operating_systems'
-require 'packet/client/plans'
 require 'packet/client/projects'
-require 'packet/client/ssh_keys'
 
 module Packet
   class Client
@@ -23,10 +19,6 @@ module Packet
         response = client.send(method, *args)
         fail_on_error(response) || response
       end
-    end
-
-    def self.instance
-      @_instance ||= new
     end
 
     private
@@ -50,13 +42,15 @@ module Packet
     end
 
     def fail_on_error(response)
-      fail Error, response.body unless response.success?
+      return if response.success?
+
+      klass = case response.status
+              when 404 then NotFound
+              else Error
+              end
+      fail klass, response.body
     end
 
-    include Packet::Client::Devices
-    include Packet::Client::OperatingSystems
-    include Packet::Client::Plans
     include Packet::Client::Projects
-    include Packet::Client::SshKeys
   end
 end

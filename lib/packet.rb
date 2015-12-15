@@ -2,15 +2,9 @@ $LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'packet/client'
 require 'packet/configuration'
-require 'packet/device'
 require 'packet/entity'
 require 'packet/errors'
-require 'packet/facility'
-require 'packet/operating_system'
-require 'packet/plan'
 require 'packet/project'
-require 'packet/ssh_key'
-require 'packet/user'
 require 'packet/version'
 
 module Packet
@@ -20,18 +14,24 @@ module Packet
 
   def self.configure
     yield(configuration)
+    reset_client!
     true
   end
 
-  def self.reset
+  def self.reset!
     @configuration = Configuration.new
+    reset_client!
   end
 
   def self.client
-    Packet::Client.instance
+    @client ||= Packet::Client.new
   end
 
   private
+
+  def self.reset_client!
+    @client = nil
+  end
 
   def self.respond_to_missing?(method_name, include_private = false)
     client.respond_to?(method_name, include_private)
