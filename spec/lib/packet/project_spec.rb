@@ -7,10 +7,10 @@ RSpec.describe Packet::Project do
     allow(client).to receive(:update_project)
     allow(client).to receive(:delete_project)
   end
-  subject { Packet::Project.new({}, client) }
+  subject { Packet::Project.new({ created_at: '2015-10-10T00:00:00Z', updated_at: '2015-11-11T00:00:00Z' }, client) }
 
   describe '.all' do
-    let(:count) { rand(1..100) }
+    let(:count) { 2 }
     subject { Packet::Project.all }
 
     it { expect(subject).to be_an(Array) }
@@ -20,7 +20,7 @@ RSpec.describe Packet::Project do
 
   describe '.find' do
     context 'when a project is found' do
-      let(:id) { SecureRandom.uuid }
+      let(:id) { '28e41feb-9f9f-421a-8f00-dcb75dbbb0b3' }
       subject { Packet::Project.find(id) }
 
       it { expect(subject).to be_a(Packet::Project) }
