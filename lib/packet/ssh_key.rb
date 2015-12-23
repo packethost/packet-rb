@@ -1,8 +1,9 @@
 module Packet
-  class Device
+  class SshKey
     include Entity
 
-    attr_accessor :hostname
+    attr_accessor :label
+    attr_accessor :key
 
     has_timestamps
   end

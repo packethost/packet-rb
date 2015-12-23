@@ -1,17 +1,21 @@
 require 'faraday'
 require 'faraday_middleware'
-require 'packet/client/projects'
+
+require 'packet/entity'
+
+%w[device facility operating_system plan project ssh_key user].each do |f|
+  require "packet/#{f}"
+  require "packet/client/#{f.pluralize}"
+end
 
 module Packet
   class Client
-    attr_accessor :url, :consumer_token, :auth_token
+    attr_accessor :auth_token, :consumer_token, :url
 
-    def initialize(url = Packet.configuration.url,
-                   auth_token = Packet.configuration.auth_token,
-                   consumer_token = Packet.configuration.consumer_token)
-      self.url = url
-      self.auth_token = auth_token
-      self.consumer_token = consumer_token
+    def initialize(auth_token = nil, consumer_token = nil, url = nil)
+      self.url = url || Packet.configuration.url
+      self.auth_token = auth_token || Packet.configuration.auth_token
+      self.consumer_token = consumer_token || Packet.configuration.consumer_token
     end
 
     [:get, :post, :patch, :head, :delete].each do |method|
@@ -19,6 +23,10 @@ module Packet
         response = client.send(method, *args)
         fail_on_error(response) || response
       end
+    end
+
+    def inspect
+      %[#<#{self.class}:#{'%014x' % (object_id << 1)}>]
     end
 
     private
@@ -51,6 +59,12 @@ module Packet
       fail klass, response.body
     end
 
+    include Packet::Client::Devices
+    include Packet::Client::Facilities
+    include Packet::Client::OperatingSystems
+    include Packet::Client::Plans
     include Packet::Client::Projects
+    include Packet::Client::SshKeys
+    include Packet::Client::Users
   end
 end

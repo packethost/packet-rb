@@ -1,5 +1,3 @@
-require 'packet/entity'
-
 module Packet
   class Project
     include Entity

@@ -2,9 +2,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'packet/client'
 require 'packet/configuration'
-require 'packet/entity'
 require 'packet/errors'
-require 'packet/project'
 require 'packet/version'
 
 module Packet

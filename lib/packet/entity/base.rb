@@ -17,8 +17,8 @@ module Packet
       end
 
       def initialize(attributes = {}, client = nil)
-        update_attributes(attributes)
         self.client = client
+        update_attributes(attributes)
       end
 
       def update_attributes(attributes = {})
