@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Ruby client for the Packet API}
   spec.description   = %q{Ruby client for the Packet API}
-  spec.homepage      = 'https://github.com/packethost/packet-rb'
+  spec.homepage      = 'https://www.packet.net'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = %w(lib)
