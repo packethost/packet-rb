@@ -3,6 +3,8 @@ Packet
 
 A Ruby client for the Packet API.
 
+[![Build Status](https://travis-ci.org/packethost/packet-rb.svg)](https://travis-ci.org/packethost/packet-rb)
+
 Configuration
 -------------
 
