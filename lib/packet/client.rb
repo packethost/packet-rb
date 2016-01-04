@@ -3,7 +3,7 @@ require 'faraday_middleware'
 
 require 'packet/entity'
 
-%w[device facility operating_system plan project ssh_key user].each do |f|
+%w(device facility operating_system plan project ssh_key user).each do |f|
   require "packet/#{f}"
   require "packet/client/#{f.pluralize}"
 end
@@ -26,7 +26,7 @@ module Packet
     end
 
     def inspect
-      %[#<#{self.class}:#{'%014x' % (object_id << 1)}>]
+      %(#<#{self.class}:#{format('%014x', (object_id << 1))}>)
     end
 
     private

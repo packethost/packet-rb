@@ -76,9 +76,10 @@ RSpec.describe Packet::Client do
       let(:response) { OpenStruct.new(success?: true, body: { id: id }) }
 
       it 'calls POST /projects' do
-        expect(subject).to receive(:post).once.with('projects', hash_including(
-          'name' => 'Test Project'
-        )).and_return(response)
+        expect(subject).to receive(:post).once.with(
+          'projects',
+          hash_including('name' => 'Test Project')
+        ).and_return(response)
         subject.create_project(project)
       end
 
@@ -91,7 +92,6 @@ RSpec.describe Packet::Client do
         before { allow(subject).to receive(:post).and_raise(Packet::Error) }
 
         it { expect { subject.create_project(project) }.to raise_error(Packet::Error) }
-        it { expect { begin subject.create_project(project); rescue Packet::Error; end }.not_to change { project.id } }
       end
     end
 
@@ -101,9 +101,10 @@ RSpec.describe Packet::Client do
       before { project.name = 'New Name' }
 
       it 'calls PATCH /projects/:id' do
-        expect(subject).to receive(:patch).once.with("projects/#{project.id}", hash_including(
-          'name' => 'New Name'
-        )).and_return(response)
+        expect(subject).to receive(:patch).once.with(
+          "projects/#{project.id}",
+          hash_including('name' => 'New Name')
+        ).and_return(response)
         subject.update_project(project)
       end
 
