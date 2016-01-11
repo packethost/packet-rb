@@ -27,7 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 1.20'
   spec.add_development_dependency 'rdoc', '~> 4'
   spec.add_development_dependency 'bundler', '~> 1.0'
-  spec.add_development_dependency 'jeweler', '~> 2.0.1'
   spec.add_development_dependency 'simplecov', '~> 0'
   spec.add_development_dependency 'rubocop', '~> 0'
   spec.add_development_dependency 'sinatra', '~> 1.4'
