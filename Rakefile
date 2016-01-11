@@ -15,15 +15,14 @@ require 'rake'
 require 'jeweler'
 require './lib/packet/version.rb'
 Jeweler::Tasks.new do |gem|
-  gem.name = 'packet'
+  gem.name = 'packethost'
   gem.homepage = 'http://github.com/packethost/packet-rb'
   gem.license = 'GPL-2.0'
-  gem.summary = 'A Ruby client for the Packet API'
-  gem.description = ''
-  gem.email = 'jake@theunraveler.com'
-  gem.authors = ['theunraveler']
+  gem.summary = 'Ruby client for the Packet API'
+  gem.description = 'Ruby client for the Packet API'
+  gem.email = %w(jake@packet.net emiliano@packet.net andy@packet.net)
+  gem.authors = ['Jake Bell', 'Emiliano Jankowski', 'Andrew Hodges']
   gem.version = Packet::VERSION
-  # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
 

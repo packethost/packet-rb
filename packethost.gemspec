@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'packet/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'packet'
+  spec.name          = 'packethost'
   spec.version       = Packet::VERSION
   spec.authors       = ['Jake Bell', 'Emiliano Jankowski', 'Andrew Hodges']
-  spec.email         = %w(jake@theunraveler.com emiliano@packet.net andy@packet.net)
+  spec.email         = %w(jake@packet.net emiliano@packet.net andy@packet.net)
 
   spec.summary       = %q{Ruby client for the Packet API}
   spec.description   = %q{Ruby client for the Packet API}
