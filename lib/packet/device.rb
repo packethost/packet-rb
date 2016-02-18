@@ -1,8 +1,10 @@
+require 'active_support/core_ext/object/try'
+
 module Packet
   class Device
     include Entity
 
-    attr_accessor :hostname, :iqn, :ip_addresses, :tags, :userdata
+    attr_accessor :hostname, :iqn, :ip_addresses, :state, :tags, :userdata
     has_one :operating_system
     has_one :plan
     has_one :facility
