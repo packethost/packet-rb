@@ -10,11 +10,19 @@ module Packet
     has_timestamps
 
     def tags
-      @tags ||= []
+      (@tags ||= []).map(&:to_sym)
     end
 
     def ip_addresses
       @ip_addresses ||= []
+    end
+
+    [:provisioning, :powering_on, :active, :powering_off, :inactive, :rebooting].each do |s|
+      define_method(:"#{s}?") { state == s }
+    end
+
+    def state
+      @state.try(:to_sym)
     end
   end
 end
