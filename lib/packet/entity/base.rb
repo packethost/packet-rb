@@ -12,7 +12,8 @@ module Packet
         class_attribute :_casts
         self._casts = {}
 
-        attr_accessor :client, :id
+        attr_accessor :id
+        attr_writer :client
         delegate :resource_name, to: :class
       end
 
