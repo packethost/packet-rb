@@ -14,7 +14,7 @@ RSpec.describe Packet::Project do
     subject { Packet::Project.all }
 
     it { expect(subject).to be_an(Array) }
-    it { expect(subject).to all(be_a Packet::Project) }
+    it { expect(subject).to all(be_a(Packet::Project)) }
     it { expect(subject.size).to be(count) }
   end
 

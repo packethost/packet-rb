@@ -56,7 +56,7 @@ module Packet
               when 404 then NotFound
               else Error
               end
-      fail klass, response.body
+      raise klass, response.body
     end
 
     include Packet::Client::Devices

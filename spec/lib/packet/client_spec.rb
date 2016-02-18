@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Packet::Client do
-  SUPPORTED_HTTP_METHODS = [:get, :post, :patch, :delete, :head]
+  SUPPORTED_HTTP_METHODS = [:get, :post, :patch, :delete, :head].freeze
 
   subject { Packet::Client.new }
   let(:faraday) { double(Faraday::Connection) }
@@ -42,7 +42,7 @@ RSpec.describe Packet::Client do
   describe 'Projects' do
     describe '#list_projects' do
       let(:count) { rand(1..100) }
-      let(:response) { OpenStruct.new(success?: true, body: { 'projects' => count.times.map { |i| { name: "Project ##{i}" } } }) }
+      let(:response) { OpenStruct.new(success?: true, body: { 'projects' => Array.new(count) { |i| { name: "Project ##{i}" } } }) }
       it { expect(subject.list_projects).to be_an(Array) }
       it { expect(subject.list_projects).to all(be_a(Packet::Project)) }
       it { expect(subject.list_projects.size).to be(count) }

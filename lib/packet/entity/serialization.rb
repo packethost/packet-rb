@@ -10,7 +10,7 @@ module Packet
           [ivar.to_s.tr('@', ''), instance_variable_get(ivar)]
         end.to_h
       end
-      alias_method :to_h, :to_hash
+      alias to_h to_hash
     end
   end
 end
