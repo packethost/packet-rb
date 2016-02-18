@@ -5,6 +5,7 @@ module Packet
     attr_accessor :name
 
     has_many :devices
+    has_many :ssh_keys
     has_timestamps
   end
 end
