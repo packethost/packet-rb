@@ -1,3 +1,4 @@
+require 'time'
 require 'active_support/concern'
 
 module Packet
