@@ -8,5 +8,7 @@ module Packet
     attr_accessor :line
     attr_accessor :specs
     attr_accessor :pricing
+
+    serializer_key :slug
   end
 end

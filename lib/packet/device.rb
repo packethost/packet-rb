@@ -4,7 +4,7 @@ module Packet
   class Device
     include Entity
 
-    attr_accessor :hostname, :iqn, :ip_addresses, :state, :tags, :userdata
+    attr_accessor :hostname, :iqn, :ip_addresses, :state, :tags, :userdata, :project_id
     has_one :operating_system
     has_one :plan
     has_one :facility
