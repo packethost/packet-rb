@@ -13,5 +13,4 @@ RSpec.describe Packet::Device do
     it { expect(subject.to_hash['plan']).to be_a(String) }
     it { expect(subject.to_hash['plan']).to eq plan.slug }
   end
-
 end
