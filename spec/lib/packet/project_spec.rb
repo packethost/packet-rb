@@ -90,5 +90,14 @@ RSpec.describe Packet::Project do
     end
   end
 
+  describe '#new_device' do
+    before { subject.id = SecureRandom.uuid }
+
+    it 'creates a Packet::Device object that has a project_id instance variable' do
+      expect(subject.new_device.project_id).to eq subject.id
+    end
+
+  end
+
   it_behaves_like 'an entity'
 end
