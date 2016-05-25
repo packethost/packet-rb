@@ -7,5 +7,7 @@ module Packet
     attr_accessor :distro
     attr_accessor :version
     attr_accessor :provisionable_on
+
+    serializer_key :slug
   end
 end
