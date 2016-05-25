@@ -8,7 +8,7 @@ module Packet
     has_many :ssh_keys
     has_timestamps
 
-    def new_device(opts={})
+    def new_device(opts = {})
       Packet::Device.new(opts.merge(project_id: id))
     end
   end
