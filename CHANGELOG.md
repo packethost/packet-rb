@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.0.7
+------
+
+* [Add power/rescue actions for devices](https://github.com/packethost/packet-rb/pull/9) (thanks again, @kke)
+
 v0.0.6
 ------
 
