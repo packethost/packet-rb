@@ -49,9 +49,7 @@ module Packet
       private
 
       def action(device, action_type)
-        post("devices/#{device.id}/actions", type: action_type).tap do |response|
-          device.update_attributes(response.body)
-        end
+        post("devices/#{device.id}/actions", type: action_type).success?
       end
     end
   end
