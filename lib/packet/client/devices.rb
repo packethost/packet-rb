@@ -25,6 +25,10 @@ module Packet
         action(device, 'reboot')
       end
 
+      def rescue_device(device)
+        action(device, 'rescue')
+      end
+
       def power_on_device(device)
         action(device, 'power_on')
       end
