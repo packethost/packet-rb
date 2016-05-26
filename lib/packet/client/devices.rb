@@ -25,10 +25,6 @@ module Packet
         action(device, 'reboot')
       end
 
-      def rebuild_device(device)
-        action(device, 'rebuild')
-      end
-
       def power_on_device(device)
         action(device, 'power_on')
       end
