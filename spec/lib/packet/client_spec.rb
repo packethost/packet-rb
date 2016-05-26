@@ -145,5 +145,9 @@ RSpec.describe Packet::Client do
     describe '#create_device'
     describe '#delete_device'
     describe '#update_device'
+    describe '#reboot_device'
+    describe '#rescue_device'
+    describe '#power_on_device'
+    describe '#power_off_device'
   end
 end
