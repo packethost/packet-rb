@@ -13,3 +13,6 @@ Style/PredicateName:
   NamePrefix:
     - is_
     - have_
+
+Style/MethodMissing:
+  Enabled: false
