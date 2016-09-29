@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.0.8
+------
+
+* [Ruby 2.0 Compatibility](https://github.com/packethost/packet-rb/pull/11) (thanks @kke)
+
 v0.0.7
 ------
 
