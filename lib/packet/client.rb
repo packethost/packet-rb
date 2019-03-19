@@ -3,7 +3,7 @@ require 'faraday_middleware'
 
 require 'packet/entity'
 
-%w(device facility operating_system plan project ssh_key user).each do |f|
+%w[device facility operating_system plan project ssh_key user].each do |f|
   require "packet/#{f}"
   require "packet/client/#{f.pluralize}"
 end
@@ -18,7 +18,7 @@ module Packet
       self.consumer_token = consumer_token || Packet.configuration.consumer_token
     end
 
-    [:get, :post, :patch, :head, :delete].each do |method|
+    %i[get post patch head delete].each do |method|
       define_method(method) do |*args|
         response = client.send(method, *args)
         fail_on_error(response) || response
