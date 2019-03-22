@@ -2,6 +2,8 @@ AllCops:
   Include:
     - '**/Rakefile'
     - lib/**/*
+  Exclude:
+    - Gemfile
 
 Documentation:
   Enabled: false
@@ -9,10 +11,13 @@ Documentation:
 LineLength:
   Enabled: false
 
-Style/PredicateName:
+Naming/PredicateName:
   NamePrefix:
     - is_
     - have_
 
-Style/MethodMissing:
+Style/MissingRespondToMissing:
+  Enabled: false
+
+Lint/DuplicateMethods:
   Enabled: false

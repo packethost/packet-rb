@@ -6,7 +6,7 @@ module Packet
     module Timestamps
       extend ActiveSupport::Concern
 
-      DEFAULT_TIMESTAMPS = [:created_at, :updated_at].freeze
+      DEFAULT_TIMESTAMPS = %i[created_at updated_at].freeze
 
       module ClassMethods
         def has_timestamps(timestamps = DEFAULT_TIMESTAMPS)

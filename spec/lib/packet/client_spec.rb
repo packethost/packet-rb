@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Packet::Client do
-  SUPPORTED_HTTP_METHODS = [:get, :post, :patch, :delete, :head].freeze
+  SUPPORTED_HTTP_METHODS = %i[get post patch delete head].freeze
 
   subject { Packet::Client.new }
   let(:faraday) { double(Faraday::Connection) }

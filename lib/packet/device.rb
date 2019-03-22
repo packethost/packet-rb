@@ -19,7 +19,7 @@ module Packet
       @ip_addresses ||= []
     end
 
-    [:provisioning, :powering_on, :active, :powering_off, :inactive, :rebooting].each do |s|
+    %i[provisioning powering_on active powering_off inactive rebooting].each do |s|
       define_method(:"#{s}?") { state == s }
     end
 
