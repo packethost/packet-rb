@@ -5,6 +5,18 @@ A Ruby client for the Packet API.
 
 [![Build Status](https://travis-ci.org/packethost/packet-rb.svg)](https://travis-ci.org/packethost/packet-rb)
 
+Installation
+------------
+
+Add this to your Gemfile
+
+    gem 'packethost', '~> 0.0.8'
+
+Or install with
+
+    gem install packethost
+
+
 Configuration
 -------------
 
