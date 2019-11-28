@@ -5,10 +5,10 @@ AllCops:
   Exclude:
     - Gemfile
 
-Documentation:
+Lint/DuplicateMethods:
   Enabled: false
 
-LineLength:
+Metrics/LineLength:
   Enabled: false
 
 Naming/PredicateName:
@@ -16,8 +16,14 @@ Naming/PredicateName:
     - is_
     - have_
 
-Style/MissingRespondToMissing:
+Style/Documentation:
   Enabled: false
 
-Lint/DuplicateMethods:
+Style/FormatStringToken:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/MissingRespondToMissing:
   Enabled: false
