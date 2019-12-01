@@ -3,7 +3,7 @@ require 'faraday_middleware'
 
 require 'packet/entity'
 
-%w[device facility operating_system plan project ssh_key user].each do |f|
+%w[device facility operating_system organization plan project ssh_key user].each do |f|
   require "packet/#{f}"
   require "packet/client/#{f.pluralize}"
 end
@@ -62,6 +62,7 @@ module Packet
     include Packet::Client::Devices
     include Packet::Client::Facilities
     include Packet::Client::OperatingSystems
+    include Packet::Client::Organizations
     include Packet::Client::Plans
     include Packet::Client::Projects
     include Packet::Client::SshKeys
