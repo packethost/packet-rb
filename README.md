@@ -1,9 +1,11 @@
+[![Build Status](https://travis-ci.org/packethost/packet-rb.svg)](https://travis-ci.org/packethost/packet-rb) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
+
 Packet
 ======
 
 A Ruby client for the Packet API.
 
-[![Build Status](https://travis-ci.org/packethost/packet-rb.svg)](https://travis-ci.org/packethost/packet-rb)
+This repository is [Experimental](https://github.com/packethost/standards/blob/master/experimental-statement.md) meaning that it's based on untested ideas or techniques and not yet established or finalized or involves a radically new and innovative style! This means that support is best effort (at best!) and we strongly encourage you to NOT use this in production.
 
 Installation
 ------------
